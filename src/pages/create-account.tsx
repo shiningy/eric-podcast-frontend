@@ -10,7 +10,7 @@ import {
 } from "../__type_graphql__/CreateAccountMutation";
 import { UserRole } from "../__type_graphql__/globalTypes";
 
-const CREATE_ACCOUNT_MUTATION = gql`
+export const CREATE_ACCOUNT_MUTATION = gql`
   mutation CreateAccountMutation($createAccountInput: CreateAccountInput!) {
     createAccount(input: $createAccountInput) {
       ok
@@ -30,7 +30,7 @@ export const CreateAccount = () => {
   const { register, handleSubmit, errors, getValues, formState } = useForm<
     ICreateAccountFrom
   >({
-    mode: "onBlur",
+    mode: "onChange",
     defaultValues: {
       role: UserRole.Host
     }
@@ -111,7 +111,6 @@ export const CreateAccount = () => {
           {errors.email?.message && (
             <FormError errorMessage={errors.email.message} />
           )}
-
           <div className="mt-8 mb-2 flex align-center text-blue-400">
             <svg
               className="w-5"
@@ -136,8 +135,8 @@ export const CreateAccount = () => {
                 message: "Password is required!"
               },
               minLength: {
-                value: 10,
-                message: "Password must be more than 10 characters"
+                value: 4,
+                message: "Password must be more than 4 characters"
               }
             })}
             className="border-b-2 border-blue-400 py-2 bg-transparent focus:outline-none w-full"

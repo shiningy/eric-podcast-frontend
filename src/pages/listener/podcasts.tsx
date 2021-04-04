@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { PODCAST_FRAGMENT } from "../../fragments";
 import { getAllPodcastQuery } from "../../__type_graphql__/getAllPodcastQuery";
 
-const ALLPODCASTS_QUERY = gql`
+export const ALLPODCASTS_QUERY = gql`
     query getAllPodcastQuery{
         getAllPodcasts{
             ok
@@ -19,7 +19,6 @@ const ALLPODCASTS_QUERY = gql`
 
 export const Podcasts = () => {
     const { data } = useQuery<getAllPodcastQuery>(ALLPODCASTS_QUERY);
-
     return <div>
         <Helmet>
             <title>Home | Nuber-podcasts</title>
@@ -28,7 +27,7 @@ export const Podcasts = () => {
         {data?.getAllPodcasts.podcasts?.map(podcast => 
             <Link to={`/podcasts/${podcast.id}`} key={podcast.id} className="relative group">
                 <div className="p-8 border-2 border-blue-400 rounded-md h-full">
-                    <div style={{ backgroundImage: `url(${podcast.thumbnailUrl})`}} className="bg-cover w-32 h-32 m-auto rounded-md"></div>
+                    <div style={{ backgroundImage: `url(${podcast.coverImg})`}} className="bg-cover w-32 h-32 m-auto rounded-md"></div>
                     <h3 className="mt-2 font-medium text-xl border-b text-center pb-2 font-bold text-blue-500">{podcast.title}</h3>
                     <div className="text-gray-500 text-center pt-2">{podcast.category}</div>
                 </div>

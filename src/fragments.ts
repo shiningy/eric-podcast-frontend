@@ -5,7 +5,7 @@ export const PODCAST_FRAGMENT = gql`
         id
         title
         category
-        thumbnailUrl
+        coverImg
         description
         rating
     }

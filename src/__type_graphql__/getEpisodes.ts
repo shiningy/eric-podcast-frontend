@@ -14,7 +14,7 @@ export interface getEpisodes_getPodcast_podcast {
   id: number;
   title: string;
   category: string;
-  thumbnailUrl: string | null;
+  coverImg: string | null;
   description: string | null;
   rating: number;
 }
