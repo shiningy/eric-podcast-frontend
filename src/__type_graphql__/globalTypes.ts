@@ -12,6 +12,11 @@ export enum UserRole {
   Listener = "Listener",
 }
 
+export interface CategoryInput {
+  page?: number | null;
+  slug: string;
+}
+
 export interface CreateAccountInput {
   email?: string | null;
   password?: string | null;

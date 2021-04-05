@@ -1,3 +1,5 @@
+const colors = require("tailwindcss/colors");
+
 module.exports = {
 	purge: [],
 	darkMode: false, // or 'media' or 'class'
@@ -10,7 +12,11 @@ module.exports = {
 				8: "8",
 			},
 		},
-		extend: {},
+		extend: {
+			colors: {
+				indigo: colors.indigo
+			}
+		},
 	},
 	variants: {
 		extend: {

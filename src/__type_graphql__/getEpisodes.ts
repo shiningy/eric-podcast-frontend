@@ -9,14 +9,32 @@ import { PodcastSearchInput } from "./globalTypes";
 // GraphQL query operation: getEpisodes
 // ====================================================
 
+export interface getEpisodes_getPodcast_podcast_category {
+  __typename: "Category";
+  name: string;
+}
+
+export interface getEpisodes_getPodcast_podcast_creator {
+  __typename: "User";
+  identity: string | null;
+}
+
+export interface getEpisodes_getPodcast_podcast_episodes {
+  __typename: "Episode";
+  title: string;
+  description: string | null;
+}
+
 export interface getEpisodes_getPodcast_podcast {
   __typename: "Podcast";
   id: number;
   title: string;
-  category: string;
+  category: getEpisodes_getPodcast_podcast_category | null;
   coverImg: string | null;
   description: string | null;
   rating: number;
+  creator: getEpisodes_getPodcast_podcast_creator;
+  episodes: getEpisodes_getPodcast_podcast_episodes[] | null;
 }
 
 export interface getEpisodes_getPodcast {

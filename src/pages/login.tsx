@@ -63,33 +63,30 @@ export const Login = () => {
     if (!loading) loginMutation();
   };
 
+  const backgroundImageUrl = "https://pixy.org/src2/575/thumbs350/5759681.jpg";
   return (
-    <div className="h-screen flex justify-center items-center bg-gray-50">
+    <div
+      className="h-screen flex justify-start items-center bg-gray-50 bg-cover relative"
+      style={{ backgroundImage: `url(${backgroundImageUrl})` }}
+    >
       <Helmet>
         <title>Log In | Nuber-podcasts</title>
       </Helmet>
-      <div className="bg-white shadow-2xl rounded-lg w-full max-w-3xl mx-5 flex justify-between">
-        <div className="hidden sm:block sm:w-7/12 bg-gradient-to-tr from-green-400 to-blue-400  flex justify-center items-center rounded-tl-lg rounded-bl-lg">
-          {" "}
-          {/*Right Side*/}
-          <div className="w-full h-full flex flex-col justify-center text-white text-right p-6">
-            <h3 className="text-4xl font-medium">Wanna listen?</h3>
-            <span className="mt-4 text-medium">
-              Just Subscribe! Deliver all podcasts to your ears.
-            </span>
-          </div>
-        </div>
-        <div className="w-full sm:w-5/12 py-16">
+      <div className="bg-white opacity-95 shadow-2xl rounded-lg w-full h-full md:h-auto max-w-md md:mx-5 md:my-5 flex justify-between md:absolute md:left-40 md:top-10">
+        <div className="w-full py-16">
           {" "}
           {/*Left Side*/}
-          <h3 className="text-blue-400 text-3xl text-center mb-10 font-medium">
+          <h3 className="text-gray-500 text-3xl text-center mb-3 font-medium">
             Nuber-Podcasts
           </h3>
+          <h4 className="text-black-400 text-3xl text-center mb-20 font-extrabold">
+            Log in
+          </h4>
           <form
             onSubmit={handleSubmit(_submit)}
-            className="w-full flex flex-col px-14"
+            className="w-full flex flex-col px-4 sm:px-10 text-2xl"
           >
-            <div className="border-b-2 border-blue-400 py-2 bg-transparent flex">
+            <div className="border-b-2 border-black-400 py-2 bg-transparent flex">
               <svg
                 className="w-6"
                 xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +118,7 @@ export const Login = () => {
             {errors.email?.message && (
               <FormError errorMessage={errors.email.message} />
             )}
-            <div className="mt-8 border-b-2 border-blue-400 py-2 bg-transparent flex">
+            <div className="mt-8 border-b-2 border-black-400 py-2 bg-transparent flex">
               <svg
                 className="w-6"
                 xmlns="http://www.w3.org/2000/svg"
@@ -163,15 +160,14 @@ export const Login = () => {
             {loginMutationResult?.login.error && (
               <FormError errorMessage={loginMutationResult.login.error} />
             )}
-            <span className="w-full text-center mt-3 text-sm text-gray-500">
+            <span className="w-full text-center mt-3 text-xl text-gray-500 font-semibold">
               Don't have an account?
               <br />
-              Create{" "}
-              <Link
+                            <Link
                 to="/create-account"
-                className="text-blue-400 hover:underline"
+                className="text-blue-400 underline font-semibold text-base"
               >
-                here!
+                Create here!
               </Link>
             </span>
           </form>

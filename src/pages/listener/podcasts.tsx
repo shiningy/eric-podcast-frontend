@@ -1,42 +1,74 @@
 import { gql, useQuery } from "@apollo/client";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import { PODCAST_FRAGMENT } from "../../fragments";
+import { Podcast } from "../../components/podcast";
+import { CATEGORY_FRAGMENT, PODCAST_FRAGMENT } from "../../fragments";
 import { getAllPodcastQuery } from "../../__type_graphql__/getAllPodcastQuery";
 
 export const ALLPODCASTS_QUERY = gql`
-    query getAllPodcastQuery{
-        getAllPodcasts{
-            ok
-            error
-            podcasts{
-                ...PodcastParts
-            }
-        }
+  query getAllPodcastQuery {
+    allCategories {
+      ok
+      error
+      categories {
+        ...CategoryParts
+      }
     }
-    ${PODCAST_FRAGMENT}
+    getAllPodcasts {
+      ok
+      error
+      podcasts {
+        ...PodcastParts
+      }
+    }
+  }
+  ${PODCAST_FRAGMENT}
+  ${CATEGORY_FRAGMENT}
 `;
+interface IFormProps {
+  searchTerm: string;
+}
 
 export const Podcasts = () => {
-    const { data } = useQuery<getAllPodcastQuery>(ALLPODCASTS_QUERY);
-    return <div>
-        <Helmet>
-            <title>Home | Nuber-podcasts</title>
-        </Helmet>
-        <div className="w-full px-5 xl:px-0 mx-auto max-w-screen-xl grid md:grid-cols-2 xl:grid-cols-4 gap-7">
-        {data?.getAllPodcasts.podcasts?.map(podcast => 
-            <Link to={`/podcasts/${podcast.id}`} key={podcast.id} className="relative group">
-                <div className="p-8 border-2 border-blue-400 rounded-md h-full">
-                    <div style={{ backgroundImage: `url(${podcast.coverImg})`}} className="bg-cover w-32 h-32 m-auto rounded-md"></div>
-                    <h3 className="mt-2 font-medium text-xl border-b text-center pb-2 font-bold text-blue-500">{podcast.title}</h3>
-                    <div className="text-gray-500 text-center pt-2">{podcast.category}</div>
+  const { data, loading } = useQuery<getAllPodcastQuery>(ALLPODCASTS_QUERY);
+  console.log(data);
+  return (
+    <div>
+      <Helmet>
+        <title>Home | Nuber-podcasts</title>
+      </Helmet>
+      {!loading && (
+        <div>
+          <div className="flex justify-around max-w-ms mx-auto">
+            {data?.allCategories.categories?.map((category) => (
+              <Link key={category.id} to={`/category/${category.slug}`}>
+                <div className="flex flex-col group items-center cursor-pointer py-3">
+                  <div
+                    className="w-10 h-10 bg-cover group-hover:bg-gray-100"
+                    style={{ backgroundImage: `url(${category.coverImg})` }}
+                  ></div>
+                  {/* <span className="mt-1 text-sm text-center font-medium">
+                    {category.name}
+                  </span> */}
                 </div>
-                <div className="p-8 rounded-md bg-opacity-90 bg-gray-400 absolute top-0 left-0 h-full w-full hidden group-hover:block flex flex-col items-center justify-center">
-                    <h3 className="font-medium text-xl text-center  font-bold text-blue-300">{podcast.title}</h3>
-                    <span className="overflow-hidden mt-3 overflow-ellipsis break-words truncate-4-lines h-28 border-t pt-3 text-gray-200">{podcast.description}</span>
-                </div>
-            </Link>)
-            }
+              </Link>
+            ))}
+          </div>
+          <div className="w-full bg-gray-900 px-5 sm:px-10 mx-auto  grid md:grid-cols-2 xl:grid-cols-4 gap-7 pt-5">
+            {data?.getAllPodcasts.podcasts?.map((podcast) => (
+              <Podcast
+                key={podcast.id}
+                id={podcast.id + ""}
+                title={podcast.title}
+                coverImg={podcast.coverImg}
+                creator={podcast.creator.identity}
+                description={podcast.description}
+                category={podcast.category?.name}
+              />
+            ))}
+          </div>
         </div>
+      )}
     </div>
-}
+  );
+};
