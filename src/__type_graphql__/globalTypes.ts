@@ -32,6 +32,11 @@ export interface PodcastSearchInput {
   id: number;
 }
 
+export interface SearchPodcastsInput {
+  page?: number | null;
+  query: string;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================
