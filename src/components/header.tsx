@@ -1,6 +1,9 @@
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
+import { Feed } from "./feed";
+import { Subscriptions } from "./subscriptions";
+import { UserProfile } from "./user-profile";
 interface IFormProps {
   searchTerm: string;
 }
@@ -37,25 +40,9 @@ export const Header: React.FC = () => {
             />
           </form>
         </div>
-        <span className="flex-none bg-gray-100 px-1 py-1 rounded-full">
-          <Link className="hover:underline flex p-1" to="/user-profile">
-            <svg
-              className="w-5"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-              />
-            </svg>
-            {/* {data?.me.email} */}
-          </Link>
-        </span>
+        <Subscriptions to="/" />
+        <Feed to="/" />
+        <UserProfile to="/user-profile"/>
       </div>
     </header>
   );

@@ -37,21 +37,6 @@ export interface category_category_podcasts {
   episodes: category_category_podcasts_episodes[] | null;
 }
 
-export interface category_category_category_podcasts {
-  __typename: "Podcast";
-  title: string;
-}
-
-export interface category_category_category {
-  __typename: "Category";
-  id: number;
-  name: string;
-  coverImg: string | null;
-  slug: string;
-  podcastCount: number;
-  podcasts: category_category_category_podcasts[] | null;
-}
-
 export interface category_category {
   __typename: "CategoryOutput";
   ok: boolean;
@@ -59,7 +44,6 @@ export interface category_category {
   totalPages: number | null;
   totalResults: number | null;
   podcasts: category_category_podcasts[] | null;
-  category: category_category_category | null;
 }
 
 export interface category {
