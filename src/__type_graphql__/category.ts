@@ -16,13 +16,14 @@ export interface category_category_podcasts_category {
 
 export interface category_category_podcasts_creator {
   __typename: "User";
-  identity: string | null;
+  identity: string;
 }
 
 export interface category_category_podcasts_episodes {
   __typename: "Episode";
+  id: number;
   title: string;
-  description: string | null;
+  description: string;
 }
 
 export interface category_category_podcasts {

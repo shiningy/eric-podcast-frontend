@@ -40,7 +40,7 @@ export const Header: React.FC = () => {
             />
           </form>
         </div>
-        <Subscriptions to="/" />
+        <Subscriptions to="/subscriptions" />
         <Feed to="/" />
         <UserProfile to="/user-profile"/>
       </div>

@@ -14,13 +14,14 @@ export interface PodcastParts_category {
 
 export interface PodcastParts_creator {
   __typename: "User";
-  identity: string | null;
+  identity: string;
 }
 
 export interface PodcastParts_episodes {
   __typename: "Episode";
+  id: number;
   title: string;
-  description: string | null;
+  description: string;
 }
 
 export interface PodcastParts {

@@ -6,6 +6,8 @@ export const ME_QUERY = gql`
         me {
             id
             email
+            password
+            identity
             role
         }
     }

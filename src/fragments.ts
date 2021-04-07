@@ -14,6 +14,7 @@ export const PODCAST_FRAGMENT = gql`
       identity
     }
     episodes {
+      id
       title
       description
     }
@@ -30,5 +31,14 @@ export const CATEGORY_FRAGMENT = gql`
     podcasts {
       title
     }
+  }
+`;
+
+export const EPISODE_FRAGMENT = gql`
+  fragment EpisodeParts on Episode {
+    id
+    title
+    description
+    category
   }
 `;

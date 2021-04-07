@@ -12,15 +12,12 @@ import { Category } from "../pages/listener/category";
 import { EditProfile } from "../pages/edit-profile";
 import { MyPodcasts } from "../pages/creator/my-podcasts";
 import { UserProfile } from "../pages/user-profile";
-
-const ListenerRoutes = [
-  <Route key={1} path="/" exact>
-    <Podcasts />
-  </Route>,
-  <Route key={2} path="/podcasts/:id">
-    <Episodes />
-  </Route>,
-];
+import { Subscriptions } from "../pages/listener/subscriptions";
+import { AddPodcast } from "../pages/creator/add-podcasts";
+import { MyPodcast } from "../pages/creator/my-podcast";
+import { AddEpisode } from "../pages/creator/add-episode";
+import { EditPodcast } from "../pages/creator/edit-podcast";
+import { UpdateEpisode } from "../pages/creator/update-episode";
 
 const listenerRoutes = [
   {
@@ -39,6 +36,10 @@ const listenerRoutes = [
     path: "/podcasts/:id",
     component: <Episodes />,
   },
+  {
+    path: "/subscriptions",
+    component: <Subscriptions />,
+  }
 ];
 
 const commonRoutes = [
@@ -57,6 +58,26 @@ const creatorRoutes = [
     path: "/",
     component: <MyPodcasts />,
   },
+  {
+    path: "/add-podcast",
+    component: <AddPodcast />,
+  },
+  {
+    path: "/podcasts/:id",
+    component: <MyPodcast />,
+  },
+  {
+    path: "/podcasts/:podcastId/edit-podcast",
+    component: <EditPodcast />,
+  },
+  {
+    path: "/podcasts/:podcastId/add-episode", 
+    component: <AddEpisode />,
+  },
+  {
+    path: "/episodes/:podcastId/:episodeId/update-episode",
+    component: <UpdateEpisode />
+  }
 ];
 
 export const LoggedInRouter = () => {
@@ -68,6 +89,7 @@ export const LoggedInRouter = () => {
       </div>
     );
   }
+  console.log(data.me.role);
   return (
     <Router>
       <Header />
