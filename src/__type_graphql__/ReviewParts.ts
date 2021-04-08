@@ -3,21 +3,19 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { UserRole } from "./globalTypes";
-
 // ====================================================
-// GraphQL query operation: meQuery
+// GraphQL fragment: ReviewParts
 // ====================================================
 
-export interface meQuery_me {
+export interface ReviewParts_creator {
   __typename: "User";
-  id: number;
   email: string;
-  password: string;
-  identity: string | null;
-  role: UserRole;
 }
 
-export interface meQuery {
-  me: meQuery_me;
+export interface ReviewParts {
+  __typename: "Review";
+  id: number;
+  creator: ReviewParts_creator;
+  title: string;
+  text: string;
 }

@@ -16,7 +16,7 @@ export interface getEpisodes_getPodcast_podcast_category {
 
 export interface getEpisodes_getPodcast_podcast_creator {
   __typename: "User";
-  identity: string;
+  identity: string | null;
 }
 
 export interface getEpisodes_getPodcast_podcast_episodes {
@@ -32,7 +32,7 @@ export interface getEpisodes_getPodcast_podcast {
   title: string;
   category: getEpisodes_getPodcast_podcast_category | null;
   coverImg: string | null;
-  description: string | null;
+  description: string;
   rating: number;
   creator: getEpisodes_getPodcast_podcast_creator;
   episodes: getEpisodes_getPodcast_podcast_episodes[] | null;
@@ -48,7 +48,7 @@ export interface getEpisodes_getPodcast {
 export interface getEpisodes_getEpisodes_episodes {
   __typename: "Podcast";
   title: string;
-  description: string | null;
+  description: string;
 }
 
 export interface getEpisodes_getEpisodes {
@@ -58,9 +58,30 @@ export interface getEpisodes_getEpisodes {
   episodes: getEpisodes_getEpisodes_episodes[] | null;
 }
 
+export interface getEpisodes_getReviews_reviews_creator {
+  __typename: "User";
+  email: string;
+}
+
+export interface getEpisodes_getReviews_reviews {
+  __typename: "Review";
+  id: number;
+  creator: getEpisodes_getReviews_reviews_creator;
+  title: string;
+  text: string;
+}
+
+export interface getEpisodes_getReviews {
+  __typename: "GetReviewsOutput";
+  ok: boolean;
+  error: string | null;
+  reviews: getEpisodes_getReviews_reviews[] | null;
+}
+
 export interface getEpisodes {
   getPodcast: getEpisodes_getPodcast;
   getEpisodes: getEpisodes_getEpisodes;
+  getReviews: getEpisodes_getReviews;
 }
 
 export interface getEpisodesVariables {

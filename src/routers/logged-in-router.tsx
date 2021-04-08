@@ -63,7 +63,7 @@ const creatorRoutes = [
     component: <AddPodcast />,
   },
   {
-    path: "/podcasts/:id",
+    path: "/podcasts/:podcastId",
     component: <MyPodcast />,
   },
   {

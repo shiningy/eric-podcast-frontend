@@ -36,7 +36,7 @@ export interface getAllPodcastQuery_getAllPodcasts_podcasts_category {
 
 export interface getAllPodcastQuery_getAllPodcasts_podcasts_creator {
   __typename: "User";
-  identity: string;
+  identity: string | null;
 }
 
 export interface getAllPodcastQuery_getAllPodcasts_podcasts_episodes {
@@ -52,7 +52,7 @@ export interface getAllPodcastQuery_getAllPodcasts_podcasts {
   title: string;
   category: getAllPodcastQuery_getAllPodcasts_podcasts_category | null;
   coverImg: string | null;
-  description: string | null;
+  description: string;
   rating: number;
   creator: getAllPodcastQuery_getAllPodcasts_podcasts_creator;
   episodes: getAllPodcastQuery_getAllPodcasts_podcasts_episodes[] | null;

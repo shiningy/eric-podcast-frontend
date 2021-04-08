@@ -16,7 +16,7 @@ export interface myPodcast_myPodcast_podcast_category {
 
 export interface myPodcast_myPodcast_podcast_creator {
   __typename: "User";
-  identity: string;
+  identity: string | null;
 }
 
 export interface myPodcast_myPodcast_podcast_episodes {
@@ -32,7 +32,7 @@ export interface myPodcast_myPodcast_podcast {
   title: string;
   category: myPodcast_myPodcast_podcast_category | null;
   coverImg: string | null;
-  description: string | null;
+  description: string;
   rating: number;
   creator: myPodcast_myPodcast_podcast_creator;
   episodes: myPodcast_myPodcast_podcast_episodes[] | null;

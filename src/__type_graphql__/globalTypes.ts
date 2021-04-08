@@ -33,8 +33,14 @@ export interface CreateEpisodeInput {
 export interface CreatePodcastInput {
   title: string;
   coverImg?: string | null;
-  description?: string | null;
+  description: string;
   categoryName: string;
+}
+
+export interface CreateReviewInput {
+  title: string;
+  text: string;
+  podcastId: number;
 }
 
 export interface EditProfileInput {
@@ -76,6 +82,18 @@ export interface UpdateEpisodeInput {
   title?: string | null;
   category?: string | null;
   description?: string | null;
+}
+
+export interface UpdatePodcastInput {
+  id: number;
+  payload: UpdatePodcastPayload;
+}
+
+export interface UpdatePodcastPayload {
+  title?: string | null;
+  description?: string | null;
+  rating?: number | null;
+  categoryName?: string | null;
 }
 
 //==============================================================

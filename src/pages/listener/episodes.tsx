@@ -1,14 +1,22 @@
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { Helmet } from "react-helmet";
+import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
-import { PODCAST_FRAGMENT } from "../../fragments";
+import { Button } from "../../components/button";
+import { PODCAST_FRAGMENT, REVIEW_FRAGMENT } from "../../fragments";
+import {
+  createReview,
+  createReviewVariables,
+} from "../../__type_graphql__/createReview";
 import {
   getEpisodes,
   getEpisodesVariables,
   getEpisodes_getPodcast_podcast,
 } from "../../__type_graphql__/getEpisodes";
-import { toggleSubscribe, toggleSubscribeVariables } from "../../__type_graphql__/toggleSubscribe";
-
+import {
+  toggleSubscribe,
+  toggleSubscribeVariables,
+} from "../../__type_graphql__/toggleSubscribe";
 
 export const GET_EPISODES_QUERY = gql`
   query getEpisodes($input: PodcastSearchInput!) {
@@ -27,8 +35,26 @@ export const GET_EPISODES_QUERY = gql`
         description
       }
     }
+    getReviews(input: $input) {
+      ok
+      error
+      reviews {
+        ...ReviewParts
+      }
+    }
   }
   ${PODCAST_FRAGMENT}
+  ${REVIEW_FRAGMENT}
+`;
+
+const CREATE_REVIEW_MUTATION = gql`
+  mutation createReview($input: CreateReviewInput!) {
+    createReview(input: $input) {
+      ok
+      error
+      id
+    }
+  }
 `;
 
 export const TOGGLE_SUBSCRIBE = gql`
@@ -44,6 +70,11 @@ interface IEpisodeParams {
   id: string;
 }
 
+interface IFormProps {
+  title: string;
+  text: string;
+}
+
 export const Episodes = () => {
   const params = useParams<IEpisodeParams>();
   const { data, loading, error } = useQuery<getEpisodes, getEpisodesVariables>(
@@ -56,9 +87,42 @@ export const Episodes = () => {
       },
     }
   );
-  const [toggleSubscrition] = useMutation<toggleSubscribe, toggleSubscribeVariables>(
-    TOGGLE_SUBSCRIBE
-  );
+  const onCompleted = (data: createReview) => {
+    const {
+      createReview: { ok },
+    } = data;
+
+    // if (ok) {
+    //   alert("Podcast Created! Check it now!");
+    // }
+  };
+  const [
+    createReviewMutation,
+    { loading: loadingReview, data: dataReview },
+  ] = useMutation<createReview, createReviewVariables>(CREATE_REVIEW_MUTATION, {
+    onCompleted,
+  });
+  const { register, getValues, formState, handleSubmit } = useForm<IFormProps>({
+    mode: "onChange",
+  });
+  const onSubmit = () => {
+    const { title, text } = getValues();
+    if (window.confirm("Are you sure you review this content?")) {
+      createReviewMutation({
+        variables: {
+          input: {
+            title,
+            text,
+            podcastId: +params.id,
+          },
+        },
+      });
+    }
+  };
+  const [toggleSubscrition] = useMutation<
+    toggleSubscribe,
+    toggleSubscribeVariables
+  >(TOGGLE_SUBSCRIBE);
 
   if (!data || loading || error) {
     return (
@@ -119,14 +183,16 @@ export const Episodes = () => {
         ></div>
       </div>
       <div className="grid grid-cols-1 gap-3">
-        {data?.getEpisodes.episodes?.map((episode) => (
-          <div className="w-full border-2 border-blue-400 rounded-lg px-4 md:px-16 py-3 flex justify-between items-center">
+        {data?.getEpisodes.episodes?.map((episode, index) => (
+          <div
+            key={index}
+            className="w-full border-2 border-blue-400 rounded-lg px-4 md:px-16 py-3 flex justify-between items-center"
+          >
             <div className="mr-2 md:mr-8">
               <h2 className="font-semibold font-lg">{episode.title}</h2>
               <h3 className="font-md"> - {episode.description}</h3>
             </div>
-            <Link to={""}>
-            </Link>
+            <Link to={""}></Link>
             <div>
               <svg
                 className="w-12 hover:text-blue-400 transition-colors cursor-pointer"
@@ -149,6 +215,37 @@ export const Episodes = () => {
                 />
               </svg>
             </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-3">
+        <h4>Reviews</h4>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            className="input"
+            type="text"
+            name="title"
+            placeholder="Title"
+            ref={register({ required: "Title is required." })}
+          />
+          <input
+            className="input"
+            type="text"
+            name="text"
+            placeholder="text..."
+            ref={register({ required: "Review is required." })}
+          />
+          <Button
+            loading={loading}
+            canClick={formState.isValid}
+            actionText="Review Confirm"
+          />
+        </form>
+        {data?.getReviews.reviews?.map((review) => (
+          <div key={review.id}>
+            <div>{review.creator.email}</div>
+            <div>{review.title}</div>
+            <div>{review.text}</div>
           </div>
         ))}
       </div>

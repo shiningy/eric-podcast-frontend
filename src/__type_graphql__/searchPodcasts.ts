@@ -16,7 +16,7 @@ export interface searchPodcasts_searchPodcasts_podcasts_category {
 
 export interface searchPodcasts_searchPodcasts_podcasts_creator {
   __typename: "User";
-  identity: string;
+  identity: string | null;
 }
 
 export interface searchPodcasts_searchPodcasts_podcasts_episodes {
@@ -32,7 +32,7 @@ export interface searchPodcasts_searchPodcasts_podcasts {
   title: string;
   category: searchPodcasts_searchPodcasts_podcasts_category | null;
   coverImg: string | null;
-  description: string | null;
+  description: string;
   rating: number;
   creator: searchPodcasts_searchPodcasts_podcasts_creator;
   episodes: searchPodcasts_searchPodcasts_podcasts_episodes[] | null;

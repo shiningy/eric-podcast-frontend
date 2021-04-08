@@ -42,3 +42,14 @@ export const EPISODE_FRAGMENT = gql`
     category
   }
 `;
+
+export const REVIEW_FRAGMENT = gql`
+  fragment ReviewParts on Review {
+    id
+    creator {
+      email
+    }
+    title
+    text
+  }
+`;

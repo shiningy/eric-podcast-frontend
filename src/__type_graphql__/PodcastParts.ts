@@ -14,7 +14,7 @@ export interface PodcastParts_category {
 
 export interface PodcastParts_creator {
   __typename: "User";
-  identity: string;
+  identity: string | null;
 }
 
 export interface PodcastParts_episodes {
@@ -30,7 +30,7 @@ export interface PodcastParts {
   title: string;
   category: PodcastParts_category | null;
   coverImg: string | null;
-  description: string | null;
+  description: string;
   rating: number;
   creator: PodcastParts_creator;
   episodes: PodcastParts_episodes[] | null;

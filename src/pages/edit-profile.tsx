@@ -23,7 +23,7 @@ const EDIT_PROFILE_MUTATION = gql`
 interface IFormProps {
   email?: string;
   password?: string;
-  identity?: string;
+  identity?: string | null;
 }
 
 export const EditProfile = () => {

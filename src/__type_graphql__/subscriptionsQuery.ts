@@ -15,7 +15,7 @@ export interface subscriptionsQuery_subscriptions_category {
 export interface subscriptionsQuery_subscriptions {
   __typename: "Podcast";
   title: string;
-  description: string | null;
+  description: string;
   category: subscriptionsQuery_subscriptions_category | null;
   rating: number;
   id: number;
