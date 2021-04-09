@@ -4,12 +4,12 @@ import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
 import { Button } from "../../components/button";
+import { getEpisodes, getEpisodesVariables } from "../../__type_graphql__/getEpisodes";
 import {
-  myPodcast,
-  myPodcastVariables,
-} from "../../__type_graphql__/myPodcast";
-import { updatePodcast, updatePodcastVariables } from "../../__type_graphql__/updatePodcast";
-import { MY_PODCAST_QUERY } from "./my-podcast";
+  updatePodcast,
+  updatePodcastVariables,
+} from "../../__type_graphql__/updatePodcast";
+import { GET_EPISODES_QUERY } from "../listener/episodes";
 
 const UPDATE_PODCAST_MUTATION = gql`
   mutation updatePodcast($input: UpdatePodcastInput!) {
@@ -32,13 +32,24 @@ interface IForm {
 
 export const EditPodcast = () => {
   const { podcastId } = useParams<IParams>();
-  const { data: podcastData, loading: loadingQuery } = useQuery<
-    myPodcast,
-    myPodcastVariables
-  >(MY_PODCAST_QUERY, {
+  // const { data: podcastData, loading: loadingQuery } = useQuery<
+  //   myPodcast,
+  //   myPodcastVariables
+  // >(MY_PODCAST_QUERY, {
+  //   variables: {
+  //     input: {
+  //       podcastId: +podcastId,
+  //     },
+  //   },
+  // });
+  const {
+    data: podcastData,
+    loading: loadingQuery,
+    error: errorQuery,
+  } = useQuery<getEpisodes, getEpisodesVariables>(GET_EPISODES_QUERY, {
     variables: {
       input: {
-        podcastId: +podcastId,
+        id: +podcastId,
       },
     },
   });
@@ -62,9 +73,9 @@ export const EditPodcast = () => {
   const { register, getValues, formState, handleSubmit } = useForm<IForm>({
     mode: "onChange",
     defaultValues: {
-      title: podcastData?.myPodcast.podcast?.title,
-      description: podcastData?.myPodcast.podcast?.description,
-      categoryName: podcastData?.myPodcast.podcast?.category?.name,
+      title: podcastData?.getPodcast.podcast?.title,
+      description: podcastData?.getPodcast.podcast?.description,
+      categoryName: podcastData?.getPodcast.podcast?.category?.name,
     },
   });
   const onSubmit = () => {
