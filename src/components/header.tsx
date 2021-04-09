@@ -41,7 +41,7 @@ export const Header: React.FC = () => {
           </form>
         </div>
         <Subscriptions to="/subscriptions" />
-        <Feed to="/" />
+        <Feed to="/feeds" />
         <UserProfile to="/user-profile"/>
       </div>
     </header>

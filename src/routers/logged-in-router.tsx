@@ -18,6 +18,7 @@ import { MyPodcast } from "../pages/creator/my-podcast";
 import { AddEpisode } from "../pages/creator/add-episode";
 import { EditPodcast } from "../pages/creator/edit-podcast";
 import { UpdateEpisode } from "../pages/creator/update-episode";
+import { Feeds } from "../pages/listener/feeds";
 
 const listenerRoutes = [
   {
@@ -39,6 +40,10 @@ const listenerRoutes = [
   {
     path: "/subscriptions",
     component: <Subscriptions />,
+  },
+  {
+    path: "/feeds",
+    component: <Feeds />,
   }
 ];
 
