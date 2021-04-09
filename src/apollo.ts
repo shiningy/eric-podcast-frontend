@@ -15,7 +15,7 @@ export const isLoggedInVar = makeVar(Boolean(token));
 export const authTokenVar = makeVar(token);
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: "https://eric-podcast-backend.herokuapp.com/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -28,7 +28,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const wsLink = new WebSocketLink({
-  uri: "ws://localhost:4000/graphql",
+  uri: "ws://eric-podcast-backend.herokuapp.com/graphql",
   options: {
     reconnect: true,
     connectionParams: {
