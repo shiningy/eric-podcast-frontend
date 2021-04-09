@@ -1,9 +1,19 @@
-import { render } from "react-dom";
+import React from 'react'
+import ReactDOM, { render } from "react-dom";
 
 import App from "./components/App";
-import { ApolloProvider } from '@apollo/client';
+import { ApolloProvider } from "@apollo/client";
 import "./styles/styles.css";
 import { client } from "./apollo";
+import { HelmetProvider } from 'react-helmet-async';
 
-const rootElement = document.getElementById("root");
-render(<ApolloProvider client={client}><App /></ApolloProvider>, rootElement);
+ReactDOM.render(
+  <React.StrictMode>
+    <ApolloProvider client={client}>
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
+    </ApolloProvider>
+  </React.StrictMode>,
+  document.getElementById("root")
+);

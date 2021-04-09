@@ -19,6 +19,7 @@ import { AddEpisode } from "../pages/creator/add-episode";
 import { EditPodcast } from "../pages/creator/edit-podcast";
 import { UpdateEpisode } from "../pages/creator/update-episode";
 import { Feeds } from "../pages/listener/feeds";
+import { Dashboard } from "../pages/creator/dashboard";
 
 const listenerRoutes = [
   {

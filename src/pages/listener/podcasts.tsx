@@ -1,7 +1,9 @@
-import { gql, useQuery } from "@apollo/client";
-import { Helmet } from "react-helmet";
+import { gql, useApolloClient, useQuery } from "@apollo/client";
+import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Podcast } from "../../components/podcast";
+import { Sidebar } from "../../components/sidebar";
 import { CATEGORY_FRAGMENT, PODCAST_FRAGMENT } from "../../fragments";
 import { getAllPodcastQuery } from "../../__type_graphql__/getAllPodcastQuery";
 
@@ -31,7 +33,22 @@ interface IFormProps {
 
 export const Podcasts = () => {
   const { data, loading } = useQuery<getAllPodcastQuery>(ALLPODCASTS_QUERY);
-  console.log(data);
+  // console.log(data);
+
+  const client = useApolloClient();
+  useEffect(() => {
+    setTimeout(() => {
+      const queryResult = client.readQuery({ query: ALLPODCASTS_QUERY });
+      // console.log(queryResult);
+      client.writeQuery({
+        query: ALLPODCASTS_QUERY,
+        data: {
+          ...queryResult,
+          podcasts: [1, 2, 3, 4],
+        },
+      });
+    }, 8000);
+  }, []);
   return (
     <div>
       <Helmet>

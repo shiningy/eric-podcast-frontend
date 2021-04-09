@@ -1,15 +1,18 @@
 import { gql, useMutation } from "@apollo/client";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { authTokenVar, isLoggedInVar } from "../apollo";
 import { Button } from "../components/button";
 import { FormError } from "../components/form-error";
 import { LS_TOKEN } from "../constants";
+import { UserRole } from "../__type_graphql__/globalTypes";
 import {
   LoginMutation,
   LoginMutationVariables,
 } from "../__type_graphql__/LoginMutation";
+import { MY_PODCASTS_QUERY } from "./creator/my-podcasts";
+import { ALLPODCASTS_QUERY } from "./listener/podcasts";
 
 export const LOGIN_MUTATION = gql`
   mutation LoginMutation($loginInput: LoginInput!) {
@@ -17,6 +20,7 @@ export const LOGIN_MUTATION = gql`
       ok
       error
       token
+      role
     }
   }
 `;
@@ -39,7 +43,7 @@ export const Login = () => {
 
   const onCompleted = (data: LoginMutation) => {
     const {
-      login: { ok, token },
+      login: { ok, token, role },
     } = data;
 
     if (ok && token) {
@@ -47,10 +51,12 @@ export const Login = () => {
       authTokenVar(token);
       isLoggedInVar(true);
     }
+    history.push("/");
   };
   const variables = {
     loginInput: getValues(),
   };
+  const history = useHistory();
   const [loginMutation, { data: loginMutationResult, loading }] = useMutation<
     LoginMutation,
     LoginMutationVariables
@@ -163,7 +169,7 @@ export const Login = () => {
             <span className="w-full text-center mt-3 text-xl text-gray-500 font-semibold">
               Don't have an account?
               <br />
-                            <Link
+              <Link
                 to="/create-account"
                 className="text-blue-400 underline font-semibold text-base"
               >

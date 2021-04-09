@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
+import { UserRole } from "../__type_graphql__/globalTypes";
 import { Feed } from "./feed";
 import { Subscriptions } from "./subscriptions";
 import { UserProfile } from "./user-profile";
@@ -40,9 +41,15 @@ export const Header: React.FC = () => {
             />
           </form>
         </div>
-        <Subscriptions to="/subscriptions" />
-        <Feed to="/feeds" />
-        <UserProfile to="/user-profile"/>
+        {data?.me.role !== UserRole.Host ? (
+          <div>
+            <Subscriptions to="/subscriptions" />
+            <Feed to="/feeds" />
+          </div>
+        ) : (
+          ""
+        )}
+        <UserProfile to="/user-profile" />
       </div>
     </header>
   );
