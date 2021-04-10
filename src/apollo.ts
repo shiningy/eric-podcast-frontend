@@ -33,7 +33,7 @@ const authLink = setContext((_, { headers }) => {
 const wsLink = new WebSocketLink({
   uri:
     process.env.NODE_ENV === "production"
-      ? "ws://eric-podcast-backend.herokuapp.com/graphql"
+      ? "wss://eric-podcast-backend.herokuapp.com/graphql"
       : "http://localhost:4000/graphql",
   options: {
     reconnect: true,
