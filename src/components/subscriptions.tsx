@@ -6,7 +6,7 @@ interface ISubscriptionsProps {
 }
 
 export const Subscriptions: React.FC<ISubscriptionsProps> = ({ to }) => (
-  <span className="flex-none bg-gray-100 px-1 py-1 rounded-full">
+  <span className="flex-none bg-gray-100 mr-5 px-1 py-1 rounded-full">
     <Link className="hover:underline flex p-1" to={to}>
       <svg
         className="w-5"

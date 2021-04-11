@@ -42,14 +42,14 @@ export const Header: React.FC = () => {
           </form>
         </div>
         {data?.me.role !== UserRole.Host ? (
-          <div>
+          <div className="flex">
             <Subscriptions to="/subscriptions" />
             <Feed to="/feeds" />
+            <UserProfile to="/user-profile" />
           </div>
         ) : (
-          ""
+          <UserProfile to="/user-profile" />
         )}
-        <UserProfile to="/user-profile" />
       </div>
     </header>
   );

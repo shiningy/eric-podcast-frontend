@@ -55,11 +55,15 @@ export const Podcasts = () => {
         <title>Home | Nuber-podcasts</title>
       </Helmet>
       {!loading && (
-        <div>
-          <div className="flex justify-around max-w-ms mx-auto">
+        <div className="bg-gray-900 h-screen w-full font-sans">
+          <div className="flex justify-around max-w-ms mx-auto bg-gray-100">
             {data?.allCategories.categories?.map((category) => (
-              <Link key={category.id} to={`/category/${category.slug}`}>
-                <div className="flex flex-col group items-center cursor-pointer py-3">
+              <Link
+                className="group items-center cursor-pointer py-3"
+                key={category.id}
+                to={`/category/${category.slug}`}
+              >
+                <div className="">
                   <div
                     className="w-10 h-10 bg-cover group-hover:bg-gray-100"
                     style={{ backgroundImage: `url(${category.coverImg})` }}

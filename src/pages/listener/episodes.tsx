@@ -219,18 +219,23 @@ export const Episodes = () => {
         ))}
       </div>
       <div className="mt-3">
-        <h4>Reviews</h4>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="mx-auto w-full rounded-xl flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <p className="text-gray-800 font-medium text-xl mb-4">
+            Write Your Review!
+          </p>
           <input
-            className="input"
+            className="input focus:bg-gray-50 border border-gray-300 p-3 mb-4 outline-none"
             type="text"
             name="title"
             placeholder="Title"
             ref={register({ required: "Title is required." })}
           />
           <input
-            className="input"
-            type="text"
+            className="input focus:bg-gray-50 sec p-3 border border-gray-300 outline-none mb-4"
+            type="textarea"
             name="text"
             placeholder="text..."
             ref={register({ required: "Review is required." })}
@@ -241,13 +246,24 @@ export const Episodes = () => {
             actionText="Review Confirm"
           />
         </form>
-        {data?.getReviews.reviews?.map((review) => (
-          <div key={review.id}>
-            <div>{review.creator.email}</div>
-            <div>{review.title}</div>
-            <div>{review.text}</div>
-          </div>
-        ))}
+        <div className="grid grid-cols-1 gap-3 my-3">
+          <h4 className="font-bold text-2xl">Reviews</h4>
+
+          {data?.getReviews.reviews?.map((review) => (
+            <div
+              className="w-full border-2 border-green-400 rounded-lg px-4 md:px-16 py-3 flex justify-between items-center"
+              key={review.id}
+            >
+              <div className="mr-2 md:mr-8">
+                <div className="font-semibold text-lg mb-1">
+                  {review.creator.email}
+                </div>
+                <div className="font-semibold font-lg mb-1">{review.title}</div>
+                <div className="font-md italic">{review.text}</div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
