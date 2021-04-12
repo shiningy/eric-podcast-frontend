@@ -5,6 +5,8 @@ import { Link, useHistory } from "react-router-dom";
 import { authTokenVar, isLoggedInVar } from "../apollo";
 import { Button } from "../components/button";
 import { FormError } from "../components/form-error";
+import { EmailIcon } from "../components/icons/email-icon";
+import { PasswordIcon } from "../components/icons/password-icon";
 import { LS_TOKEN } from "../constants";
 import { UserRole } from "../__type_graphql__/globalTypes";
 import {
@@ -78,10 +80,8 @@ export const Login = () => {
       <Helmet>
         <title>Log In | Nuber-podcasts</title>
       </Helmet>
-      <div className="bg-white opacity-95 shadow-2xl rounded-lg w-full h-full md:h-auto max-w-md md:mx-5 md:my-5 flex justify-between md:absolute md:left-40 md:top-10">
+      <div className="bg-white opacity-95 shadow-2xl w-full h-full sm:rounded-lg sm:max-w-md  sm:h-auto sm:absolute sm:left-40 sm:top-30">
         <div className="w-full py-16">
-          {" "}
-          {/*Left Side*/}
           <h3 className="text-gray-500 text-3xl text-center mb-3 font-medium">
             Nuber-Podcasts
           </h3>
@@ -90,29 +90,16 @@ export const Login = () => {
           </h4>
           <form
             onSubmit={handleSubmit(_submit)}
-            className="w-full flex flex-col px-4 sm:px-10 text-2xl"
+            className="w-full flex flex-col px-4 sm:px-10 text-2xl items-center"
           >
-            <div className="border-b-2 border-black-400 py-2 bg-transparent flex">
-              <svg
-                className="w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
+            <div className="w-10/12 h-12 border-b-2 border-black-400 py-2 bg-transparent flex">
+              <EmailIcon />
               <input
                 ref={register({
                   required: "Email is required!",
                   pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                 })}
-                className="focus:outline-none pl-2 w-full"
+                className="focus:outline-none pl-4 w-full"
                 name="email"
                 type="email"
                 placeholder="E-mail"
@@ -124,41 +111,29 @@ export const Login = () => {
             {errors.email?.message && (
               <FormError errorMessage={errors.email.message} />
             )}
-            <div className="mt-8 border-b-2 border-black-400 py-2 bg-transparent flex">
-              <svg
-                className="w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
-                />
-              </svg>
+            <div className="w-10/12 h-12 mt-8 border-b-2 border-black-400 py-2 bg-transparent flex">
+              <PasswordIcon />
               <input
                 ref={register({
                   required: "Password is required!",
                   minLength: 4,
                 })}
-                className="focus:outline-none pl-2 w-full"
+                className="focus:outline-none pl-4 w-full"
                 name="password"
                 type="password"
                 placeholder="Password"
               ></input>
             </div>
             {errors.password?.message && (
-              <FormError errorMessage={errors.password.message} />
+              <FormError 
+              errorMessage={errors.password.message} />
             )}
             {errors.password?.type === "minLength" && (
               <FormError errorMessage="Password must be more than 4 characters" />
             )}
 
             <Button
-              className="mt-12"
+              className="mt-12 w-1/2 rounded-xl"
               canClick={formState.isValid}
               loading={loading}
               actionText="Login"
