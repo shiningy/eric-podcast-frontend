@@ -13,4 +13,13 @@
   @apply text-green-600 hover:underline
 }
 
+
+.toggle-checkbox:checked {
+  @apply: bg-green-500;
+}
+
+.toggle-checkbox:checked ~ span:last-child {
+  @apply: translate-x-7;
+}
+
 @tailwind utilities;

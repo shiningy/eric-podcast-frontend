@@ -35,7 +35,9 @@ const DELETE_PODCAST_MUTATION = gql`
 `;
 
 export const MyPodcasts = () => {
-  const { data } = useQuery<myPodcasts>(MY_PODCASTS_QUERY);
+  const { data } = useQuery<myPodcasts>(MY_PODCASTS_QUERY, {
+    fetchPolicy: "network-only",
+  });
   const [deletePodcastMutation, { data: deleteData, loading }] = useMutation<
     deletePodcast,
     deletePodcastVariables
@@ -51,21 +53,6 @@ export const MyPodcasts = () => {
       });
     }
   };
-
-  // const client = useApolloClient();
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     const queryResult = client.readQuery({ query: MY_PODCASTS_QUERY });
-  //     console.log(queryResult);
-  //     client.writeQuery({
-  //       query: MY_PODCASTS_QUERY,
-  //       data: {
-  //         ...queryResult,
-  //         podcasts: [1, 2, 3, 4],
-  //       },
-  //     });
-  //   }, 8000);
-  // }, []);
   return (
     <div>
       <Helmet>

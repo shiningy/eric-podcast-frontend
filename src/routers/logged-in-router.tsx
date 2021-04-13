@@ -95,7 +95,6 @@ export const LoggedInRouter = () => {
       </div>
     );
   }
-  console.log(data.me.role);
   return (
     <Router>
       <Header />

@@ -32,23 +32,25 @@ interface IFormProps {
 }
 
 export const Podcasts = () => {
-  const { data, loading } = useQuery<getAllPodcastQuery>(ALLPODCASTS_QUERY);
-  // console.log(data);
+  const { data, loading } = useQuery<getAllPodcastQuery>(ALLPODCASTS_QUERY, {
+    fetchPolicy: "network-only",
+  });
+  console.log(data);
 
-  const client = useApolloClient();
-  useEffect(() => {
-    setTimeout(() => {
-      const queryResult = client.readQuery({ query: ALLPODCASTS_QUERY });
-      // console.log(queryResult);
-      client.writeQuery({
-        query: ALLPODCASTS_QUERY,
-        data: {
-          ...queryResult,
-          podcasts: [1, 2, 3, 4],
-        },
-      });
-    }, 8000);
-  }, []);
+  // const client = useApolloClient();
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     const queryResult = client.readQuery({ query: ALLPODCASTS_QUERY });
+  //     // console.log(queryResult);
+  //     client.writeQuery({
+  //       query: ALLPODCASTS_QUERY,
+  //       data: {
+  //         ...queryResult,
+  //         podcasts: [1, 2, 3, 4],
+  //       },
+  //     });
+  //   }, 8000);
+  // }, []);
   return (
     <div>
       <Helmet>

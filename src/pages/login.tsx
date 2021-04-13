@@ -1,4 +1,4 @@
-import { gql, useMutation } from "@apollo/client";
+import { gql, useApolloClient, useMutation } from "@apollo/client";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
@@ -33,6 +33,7 @@ interface ILoginForm {
 }
 
 export const Login = () => {
+  const history = useHistory();
   const {
     register,
     getValues,
@@ -58,7 +59,6 @@ export const Login = () => {
   const variables = {
     loginInput: getValues(),
   };
-  const history = useHistory();
   const [loginMutation, { data: loginMutationResult, loading }] = useMutation<
     LoginMutation,
     LoginMutationVariables
@@ -83,9 +83,9 @@ export const Login = () => {
       <div className="bg-white opacity-95 shadow-2xl w-full h-full sm:rounded-lg sm:max-w-md  sm:h-auto sm:absolute sm:left-40 sm:top-30">
         <div className="w-full py-16">
           <h3 className="text-gray-500 text-3xl text-center mb-3 font-medium">
-            Nuber-Podcasts
+            Eric's Podcasts
           </h3>
-          <h4 className="text-black-400 text-3xl text-center mb-20 font-extrabold">
+          <h4 className="text-green-600 text-3xl text-center mb-20 font-extrabold">
             Log in
           </h4>
           <form
@@ -125,8 +125,7 @@ export const Login = () => {
               ></input>
             </div>
             {errors.password?.message && (
-              <FormError 
-              errorMessage={errors.password.message} />
+              <FormError errorMessage={errors.password.message} />
             )}
             {errors.password?.type === "minLength" && (
               <FormError errorMessage="Password must be more than 4 characters" />
@@ -146,7 +145,7 @@ export const Login = () => {
               <br />
               <Link
                 to="/create-account"
-                className="text-blue-400 underline font-semibold text-base"
+                className="text-blue-600 underline font-semibold text-base"
               >
                 Create here!
               </Link>
